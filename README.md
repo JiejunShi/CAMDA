@@ -11,6 +11,7 @@ Besides global hypomethylation and focal hypermethylation, local DNA methylation
   - collections
 - R with following packages
   - getopt
+  - dplyr
 - samtools v0.1.19
 ## Installation
 No installation needed.
