@@ -17,5 +17,5 @@ No installation needed.
 **Fig 1**. Schematic of methylation interruption captured by bisulfite sequencing.  
 Bisulfite sequencing reads are dissected into three categories of fragments, i.e. methylated fragments (consecutive solid circles in **Fig 1**), unmethylated fragments (consecutive blank circles), and methylation-interrupted fragments (consecutive slashed circles). Thus, MIELD score of a particular genomic region is measured by the following equation.  
 ![image](https://github.com/JiejunShi/methylation_interruption/blob/master/images/MIELD_Equation.jpg)  
-‘M’, ‘U’ and ‘I’ represent the numbers of methylated fragments, unmethylated fragments and methylation-interrupted fragments, respectively. ‘ω_m’, ‘ω_u’ and ‘ω_i’ are the weights for each fragment. Optional weights can be the CpG counts of each fragment or 1.
+‘M’, ‘U’ and ‘I’ represent the numbers of methylated fragments, unmethylated fragments and methylation-interrupted fragments, respectively. ‘ω_m’, ‘ω_u’ and ‘ω_i’ are the weights for each fragment. Optional weights can be the CpG counts of each fragment or 1(unweighted).
 ## Tutorials
