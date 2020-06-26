@@ -9,6 +9,8 @@ Besides global hypomethylation and focal hypermethylation, local DNA methylation
   - pandas
   - copy
   - collections
+- R with following packages
+  - getopt
 - samtools v0.1.19
 ## Installation
 No installation needed.
