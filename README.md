@@ -65,10 +65,12 @@ There are two scripts in MIELD toolkit. (functions.py is the functions required 
 
 	$ python ./src/MIELD.py ReadCT ./demo/example.bam hg19.fa -o example_ReadCT.tsv -s "/path/to/samtools/v0.1.19" -x CG
 
-  - ReadCT file saves all the CpG in each reads. C indicates methylated cytosine, and T indicates unmethylated cytosine. Each columns of this file represent: "chr","strand","FirstCT","LastCT","CT_count","CT_pos","CT_seq".
+  - ReadCT file saves all the CpG in each reads. "C" indicates methylated cytosine, and "T" indicates unmethylated cytosine. Each columns of this file represent: "chr","strand","FirstCT","LastCT","CT_count","CT_pos","CT_seq".
 
 #### 2.2 Calculating MIELD and MethRatio from ReadCT file
 
 	$ Rscript ./src/ReadCT2MIELD.r -i example_ReadCT.tsv -r ./demo/example.bed -w 1 -o example_MIELD_weight_1.tsv
 	
-  - 
+  - If `-w 1`, MIELD scores with weights equal to 1 are generated. If `-w cg`, MIELD scores with weights equal to CpG counts are generated. In the 2nd case, the MIELD score will be the same as the in step **1.2**. 
+  - Because step **2.1** is time-consuming, we recommend to follow step **1** if you only want the MIELD score with weights equal to CpG counts, which performs better in terms of expression correlation.
+
