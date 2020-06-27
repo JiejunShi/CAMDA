@@ -23,7 +23,7 @@ Bisulfite sequencing reads are dissected into three categories of fragments, i.e
 ![image](https://github.com/JiejunShi/methylation_interruption/blob/master/images/MIELD_Equation.jpg)  
 ‘M’, ‘U’ and ‘I’ represent the numbers of methylated fragments, unmethylated fragments and methylation-interrupted fragments, respectively. ‘ω_m’, ‘ω_u’ and ‘ω_i’ are the weights for each fragment. Optional weights can be **the CpG counts of each fragment** or **1**(unweighted).
 ## Usage
-There are two scripts in MIELD toolkit. (functions.py is the functions required by MIELD.py)
+There are two scripts in MIELD toolkit. (`./src/functions.py` contains the functions required by `./src/MIELD.py`) Example files of all the input and output can be found in `./demo/`.
 
 	$ python ./src/MIELD.py
  	MIELD Toolkit
@@ -36,14 +36,14 @@ There are two scripts in MIELD toolkit. (functions.py is the functions required 
 
 	$ Rscript ./src/ReadCT2MIELD.r -h
 	Usage: Rscript Scripts/MIELD/ReadCT2MIELD.r [-[-help|h]] [-[-ReadCT|i] <character>] [-[-Regions|r] <character>] [-[-UseStrand|s]] [-[-Weight|w] [<character>]] [-[-Output|o] [<character>]]
-	-h|--help	useage
-    	-i|--ReadCT       ReadCT file. REQUIRED.
-    	-r|--Regions      Bed file of regions whose Methylation-Interruption-Evaluated Local Discordance(MIELD) will be reported. REQUIRED.
-    	-s|--UseStrand    If -s is specified, strand infomation(6th column) in Regions file will be used.
-    	-w|--Weight       Weight applied to each sub-read fragment, either "cg" or "1". "cg" means weight equal to the length of fragment. "1" means no weight applied. [Default="cg"]
-    	-o|--Output       Output file report MIELD and MethRatio of each region. [Default="Region_MIELD.tsv"].
+		-h|--help	useage
+		-i|--ReadCT       ReadCT file. REQUIRED.
+		-r|--Regions      Bed file of regions whose Methylation-Interruption-Evaluated Local Discordance(MIELD) will be reported. REQUIRED.
+		-s|--UseStrand    If -s is specified, strand infomation(6th column) in Regions file will be used.
+		-w|--Weight       Weight applied to each sub-read fragment, either "cg" or "1". "cg" means weight equal to the length of fragment. "1" means no weight applied. [Default="cg"]
+		-o|--Output       Output file report MIELD and MethRatio of each region. [Default="Region_MIELD.tsv"].
 
-  - MIELD tools take the BSMAP generated bam files as inputs. And we suggust to sort bam file by coordinates before calculating MIELD score.
+  - MIELD tools take the BSMAP([by Yuanxin](https://sites.google.com/a/brown.edu/bioinformatics-in-biomed/bsmap-for-methylation)) alignments as inputs. And we suggust to sort bam file by coordinates before calculating MIELD score.
 
 ### 1. MIELD (weights equal to the CpG counts of each fragment)
 #### 1.1 Generating MIELD and Mean Methylation Ratio(MethRatio) of each CpG from BSMAP alignments
@@ -60,17 +60,17 @@ There are two scripts in MIELD toolkit. (functions.py is the functions required 
 
 	$ python ./src/MIELD.py BedRatio ./demo/example.bed example_CpG_MethRatio.tsv -o example_MethRatio.tsv
 
-### 2. MIELD (weights equal to 1)
+### 2. MIELD (weights equal to 1 for each fragment)
 #### 2.1 Generating ReadCT file from BSMAP alignments
 
 	$ python ./src/MIELD.py ReadCT ./demo/example.bam hg19.fa -o example_ReadCT.tsv -s "/path/to/samtools/v0.1.19" -x CG
 
-  - ReadCT file saves all the CpG in each reads. "C" indicates methylated cytosine, and "T" indicates unmethylated cytosine. Each columns of this file represent: "chr","strand","FirstCT","LastCT","CT_count","CT_pos","CT_seq".
+  - ReadCT file saves all the CpG in each reads. "C" indicates methylated cytosine, and "T" indicates unmethylated cytosine. Each line is a BS-seq read. Columns of this file represent: "chr","strand","FirstCT","LastCT","CT_count","CT_pos","CT_seq".
 
 #### 2.2 Calculating MIELD and MethRatio from ReadCT file
 
 	$ Rscript ./src/ReadCT2MIELD.r -i example_ReadCT.tsv -r ./demo/example.bed -w 1 -o example_MIELD_weight_1.tsv
 	
   - If `-w 1`, MIELD scores with weights equal to 1 are generated. If `-w cg`, MIELD scores with weights equal to CpG counts are generated. In the 2nd case, the MIELD score will be the same as the in step **1.2**. 
-  - Because step **2.1** is time-consuming, we recommend to follow step **1** if you only want the MIELD score with weights equal to CpG counts, which performs better in terms of expression correlation.
+  - Because step **2.1** is time-consuming, we recommend to follow step **1.1** and **1.2** if you only want the MIELD score with weights equal to CpG counts, which performs better in terms of expression correlation.
 
