@@ -37,11 +37,11 @@ There are two scripts in MIELD toolkit. (`./src/functions.py` contains the funct
 	$ Rscript ./src/ReadCT2MIELD.r -h
 	Usage: Rscript Scripts/MIELD/ReadCT2MIELD.r [-[-help|h]] [-[-ReadCT|i] <character>] [-[-Regions|r] <character>] [-[-UseStrand|s]] [-[-Weight|w] [<character>]] [-[-Output|o] [<character>]]
 		-h|--help	useage
-		-i|--ReadCT       ReadCT file. REQUIRED.
-		-r|--Regions      Bed file of regions whose Methylation-Interruption-Evaluated Local Discordance(MIELD) will be reported. REQUIRED.
-		-s|--UseStrand    If -s is specified, strand infomation(6th column) in Regions file will be used.
-		-w|--Weight       Weight applied to each sub-read fragment, either "cg" or "1". "cg" means weight equal to the length of fragment. "1" means no weight applied. [Default="cg"]
-		-o|--Output       Output file report MIELD and MethRatio of each region. [Default="Region_MIELD.tsv"].
+		-i|--ReadCT	ReadCT file. REQUIRED.
+		-r|--Regions	Bed file of regions whose Methylation-Interruption-Evaluated Local Discordance(MIELD) will be reported. REQUIRED.
+		-s|--UseStrand	If -s is specified, strand infomation(6th column) in Regions file will be used.
+		-w|--Weight	Weight applied to each sub-read fragment, either "cg" or "1". "cg" means weight equal to the length of fragment. "1" means no weight applied. [Default="cg"]
+		-o|--Output	Output file report MIELD and MethRatio of each region. [Default="Region_MIELD.tsv"].
 
   - MIELD tools take the BSMAP([by Yuanxin](https://sites.google.com/a/brown.edu/bioinformatics-in-biomed/bsmap-for-methylation)) alignments as inputs. And we suggust to sort bam file by coordinates before calculating MIELD score.
 
