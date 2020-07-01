@@ -6,9 +6,9 @@ Besides global hypomethylation and focal hypermethylation, local DNA methylation
 ## Equation of MIELD
 ![image](https://github.com/JiejunShi/methylation_interruption/blob/master/images/MIELD_schematic.png)  
 **Fig 1**. Schematic of methylation interruption captured by bisulfite sequencing.  
-Bisulfite sequencing reads are dissected into three categories of fragments, i.e. methylated fragments (consecutive solid circles in **Fig 1**), unmethylated fragments (consecutive blank circles), and methylation-interrupted fragments (consecutive slashed circles). Thus, MIELD score of a particular genomic region is measured by the following equation.  
+Bisulfite sequencing reads are dissected into three categories of fragments, i.e. methylated(***M***) fragments (consecutive solid circles in **Fig 1**), unmethylated(***U***) fragments (consecutive blank circles), and methylation-interrupted(***I***) fragments (consecutive slashed circles). Thus, MIELD score of a particular genomic region is measured by the following equation.  
 ![image](https://github.com/JiejunShi/methylation_interruption/blob/master/images/MIELD_Equation.png)  
-‘M’, ‘U’ and ‘I’ represent the numbers of methylated fragments, unmethylated fragments and methylation-interrupted fragments, respectively. ‘ω_m’, ‘ω_u’ and ‘ω_i’ are the weights for each fragment. Optional weights can be **the CpG counts of each fragment** or **1**(unweighted).
+‘***M***’, ‘***U***’, and ‘***I***’ represent the numbers of methylated fragments, unmethylated fragments and methylation-interrupted fragments, respectively. ‘ω_m’, ‘ω_u’ and ‘ω_i’ are the weights for each fragment. Optional weights can be **the CpG counts of each fragment** or **1**(unweighted).
 ## Dependencies
 - Python3 with following packages
   - numpy
@@ -45,7 +45,7 @@ There are two scripts in MIELD toolkit. (`./src/functions.py` contains the funct
 
   - MIELD tools take the BSMAP([by Yuanxin](https://sites.google.com/a/brown.edu/bioinformatics-in-biomed/bsmap-for-methylation)) alignments as inputs. And we suggust to sort bam file by coordinates before calculating MIELD score.
 
-### 1. MIELD (weights equal to the CpG counts of each fragment)
+### 1. MIELD (***M***, ***U***, and ***I*** fragments are weighted by CpG counts)
 #### 1.1 Generating MIELD and Mean Methylation Ratio(MethRatio) of each CpG from BSMAP alignments
 
 	$ python ./src/MIELD.py MIELD ./demo/example.bam hg19.fa -o example -w example -s "/path/to/samtools/v0.1.19" -x CG
@@ -60,7 +60,7 @@ There are two scripts in MIELD toolkit. (`./src/functions.py` contains the funct
 
 	$ python ./src/MIELD.py BedRatio ./demo/example.bed example_CpG_MethRatio.tsv -o example_MethRatio.tsv
 
-### 2. MIELD (weights equal to 1 for each fragment)
+### 2. MIELD (***M***, ***U***, and ***I*** fragments are unweighted)
 #### 2.1 Generating ReadCT file from BSMAP alignments
 
 	$ python ./src/MIELD.py ReadCT ./demo/example.bam hg19.fa -o example_ReadCT.tsv -s "/path/to/samtools/v0.1.19" -x CG
@@ -71,6 +71,6 @@ There are two scripts in MIELD toolkit. (`./src/functions.py` contains the funct
 
 	$ Rscript ./src/ReadCT2MIELD.r -i example_ReadCT.tsv -r ./demo/example.bed -w 1 -o example_MIELD_weight_1.tsv
 	
-  - If `-w 1`, MIELD scores with weights equal to 1 are generated. If `-w cg`, MIELD scores with weights equal to CpG counts are generated. In the 2nd case, the MIELD score will be the same as the output in step **1.2**. 
+  - If `-w 1`, MIELD scores with weights equal to 1(unweighted) are generated. If `-w cg`, MIELD scores with weights equal to CpG counts are generated. In the 2nd case, the MIELD score will be the same as the output in step **1.2**. 
   - Because step **2.1** is time-consuming, we recommend to follow step **1.1** and **1.2** if you only want the MIELD score with weights equal to CpG counts, which performs better in terms of expression correlation.
 
