@@ -6,7 +6,7 @@ OptList=c('help',       'h', 0, 'logical',   'useage',
           'ReadCT',     'i', 1, 'character', 'ReadCT file. REQUIRED.',
           'Regions',    'r', 1, 'character', 'Bed file of regions whose Methylation-Interruption-Evaluated Local Discordance(MIELD) will be reported. REQUIRED.',
           'UseStrand',  's', 0, 'logical', 'If -s is specified, strand infomation(6th column) in Regions file will be used.',
-          'Weight',     'w', 2, 'character', 'Weight applied to each sub-read fragment, either "cg" or "1". "cg" means weight equal to the length of fragment. "1" means no weight applied. [Default="cg"]',
+          'Weight',     'w', 2, 'character', 'Weight applied to each sub-read fragment, either "cg" or "1". "cg" means weight equal to the CpG count of each fragment. "1" means no weight applied. [Default="cg"]',
           'Output',     'o', 2, 'character', 'Output file report MIELD and MethRatio of each region. [Default="Region_MIELD.tsv"].'
         );
 OptList=matrix(OptList, byrow=TRUE, ncol=5)
