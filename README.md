@@ -40,7 +40,7 @@ There are two scripts in MIELD toolkit. (`./src/functions.py` contains the funct
 		-i|--ReadCT	ReadCT file. REQUIRED.
 		-r|--Regions	Bed file of regions whose Methylation-Interruption-Evaluated Local Discordance(MIELD) will be reported. REQUIRED.
 		-s|--UseStrand	If -s is specified, strand infomation(6th column) in Regions file will be used.
-		-w|--Weight	Weight applied to each sub-read fragment, either "cg" or "1". "cg" means weight equal to the length of fragment. "1" means no weight applied. [Default="cg"]
+		-w|--Weight	Weight applied to each sub-read fragment, either "cg" or "1". "cg" means weights equal to the CpG counts of each fragment. "1" means no weight applied. [Default="cg"]
 		-o|--Output	Output file report MIELD and MethRatio of each region. [Default="Region_MIELD.tsv"].
 
   - MIELD tools take the BSMAP([by Yuanxin](https://sites.google.com/a/brown.edu/bioinformatics-in-biomed/bsmap-for-methylation)) alignments as inputs. And we suggust to sort bam file by coordinates before calculating MIELD score.
@@ -71,6 +71,6 @@ There are two scripts in MIELD toolkit. (`./src/functions.py` contains the funct
 
 	$ Rscript ./src/ReadCT2MIELD.r -i example_ReadCT.tsv -r ./demo/example.bed -w 1 -o example_MIELD_weight_1.tsv
 	
-  - If `-w 1`, MIELD scores with weights equal to 1 are generated. If `-w cg`, MIELD scores with weights equal to CpG counts are generated. In the 2nd case, the MIELD score will be the same as the in step **1.2**. 
+  - If `-w 1`, MIELD scores with weights equal to 1 are generated. If `-w cg`, MIELD scores with weights equal to CpG counts are generated. In the 2nd case, the MIELD score will be the same as the output in step **1.2**. 
   - Because step **2.1** is time-consuming, we recommend to follow step **1.1** and **1.2** if you only want the MIELD score with weights equal to CpG counts, which performs better in terms of expression correlation.
 
