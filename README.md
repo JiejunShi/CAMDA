@@ -5,11 +5,12 @@ We quantified "methylation competition" based on the competition events captured
 ## Authors
 - Jiejun Shi (jiejuns@uci.edu)
 - Wei Li (wei.li@uci.edu)
-## Equation of CAMDA
+## Equation of methylation competition score (CAMDA)
 ![image](https://github.com/JiejunShi/methylation_interruption/blob/master/images/CAMDA_schematic.png)  
 **Fig 1. Schematic of methylation competition captured by bisulfite sequencing.**  
 Bisulfite sequencing reads are dissected into three categories of fragments, i.e. methylated(***M***) fragments (consecutive solid circles in **Fig 1**), unmethylated(***U***) fragments (consecutive blank circles), and methylation-competition(***C***) fragments (consecutive slashed circles). Thus, CAMDA score of a particular genomic region is measured by the following equation.  
 ![image](https://github.com/JiejunShi/methylation_interruption/blob/master/images/CAMDA_Equation.png)  
+**Fig 2. Equation of methylation competition.**  
 ‘***M***’, ‘***U***’, and ‘***C***’ represent the numbers of methylated fragments, unmethylated fragments and methylation-competition fragments, respectively. ‘ω_m’, ‘ω_u’ and ‘ω_c’ are the weights for each fragment. Optional weights can be **the CpG counts of each fragment** or **1**(unweighted).
 ## Dependencies
 - Python3 with following packages
