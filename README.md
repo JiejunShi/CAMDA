@@ -26,7 +26,7 @@ Bisulfite sequencing reads are dissected into three categories of fragments, i.e
 ## Installation
 No installation needed.
 ## Usage
-There are two scripts in CAMDA toolkit. (`./scripts/functions.py` contains the functions required by `./scripts/CAMDA.py`) Example files of all the input and output can be found in `./demo/`.
+There are two executable scripts in CAMDA toolkit, i.e. `./scripts/CAMDA.py` and `./scripts/ReadCT2CAMDA.r`. `./scripts/functions.py` contains the functions required by `./scripts/CAMDA.py`. Example files of all the input and output can be found in `./demo/`.
 
 	$ python ./scripts/CAMDA.py
  	CAMDA Toolkit
