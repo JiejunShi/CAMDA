@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+CAMDA#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import os, re, sys, time
 import pandas as pd
@@ -167,15 +167,15 @@ def Combine_Methylation_Both_Strands(ref,uncombined):
             pos = ref_cr.find('CG', pos+2)
     return uncombined
 
-def Out_MIELD(out_prefix,wig_prefix,wig_bin,min_depth,ref,refmark,CT_SNP,seq_context,meth0,meth1,depth,meth_ct,depth_ct,nmap):
+def Out_CAMDA(out_prefix,wig_prefix,wig_bin,min_depth,ref,refmark,CT_SNP,seq_context,meth0,meth1,depth,meth_ct,depth_ct,nmap):
     header=['chr','pos','strand','context','ratio','eff_CT_count','C_count','CT_count','rev_G_count','rev_GA_count','CI_lower','CI_upper']
     fo_mr = open(out_prefix+"_CpG_MethRatio.tsv", 'w')
     fo_mr.write('\t'.join(header)+'\n')
-    fo_mield = open(out_prefix+"_CpG_MIELD.tsv", 'w')
-    fo_mield.write('\t'.join(header)+'\n')
+    fo_camda = open(out_prefix+"_CpG_CAMDA.tsv", 'w')
+    fo_camda.write('\t'.join(header)+'\n')
     if wig_prefix!=None:
         fo_mr_wig = open(wig_prefix+"_CpG_MethRatio.wig", 'w');fo_mr_wig.write('track type=wiggle_0 name='+wig_prefix+'_MethRatio\n')
-        fo_mield_wig = open(wig_prefix+"_CpG_MIELD.wig", 'w');fo_mield_wig.write('track type=wiggle_0 name='+wig_prefix+'_MIELD\n')
+        fo_camda_wig = open(wig_prefix+"_CpG_CAMDA.wig", 'w');fo_camda_wig.write('track type=wiggle_0 name='+wig_prefix+'_CAMDA\n')
         disp('Output MethRatio files and wiggle files')
     else:
         disp('Output MethRatio files')
@@ -188,7 +188,7 @@ def Out_MIELD(out_prefix,wig_prefix,wig_bin,min_depth,ref,refmark,CT_SNP,seq_con
         if CT_SNP > 0: depth_ct_cr, meth_ct_cr = depth_ct[cr], meth_ct[cr]
         if wig_prefix!=None:
             fo_mr_wig.write('variableStep chrom={} span={}\n'.format(cr, wig_bin))
-            fo_mield_wig.write('variableStep chrom={} span={}\n'.format(cr, wig_bin))
+            fo_camda_wig.write('variableStep chrom={} span={}\n'.format(cr, wig_bin))
             bin = wigd = wigm0 = wigm1 = 0
         for i, dd in enumerate(depth_cr):
             if dd < dep0: continue
@@ -203,19 +203,19 @@ def Out_MIELD(out_prefix,wig_prefix,wig_bin,min_depth,ref,refmark,CT_SNP,seq_con
             else: seq = seq_context_str[refmarkcr[i]-1]
             if refcr[i] == 'C': strand = '+'
             else: strand = '-'
-            m_mr = meth0_cr[i];m_full=meth1_cr[i];m_mield=m_full-m_mr;
+            m_mr = meth0_cr[i];m_full=meth1_cr[i];m_camda=m_full-m_mr;
             try: ratio_mr = min(m_mr, d) / d
             except ZeroDivisionError: continue
             try: ratio_full = min(m_full, d) / d
             except ZeroDivisionError: continue
-            ratio_mield = ratio_full - ratio_mr
+            ratio_camda = ratio_full - ratio_mr
             nc += 1
             nd += d
             if wig_prefix!=None:
                 if i // wig_bin != bin:
                     if wigd > 0:
                         fo_mr_wig.write('{:.0f}\t{:.3f}\n'.format(bin*wig_bin+1, min(wigm0/wigd,1)))
-                        fo_mield_wig.write('{:.0f}\t{:.3f}\n'.format(bin*wig_bin+1, min((wigm1-wigm0)/wigd,1)))
+                        fo_camda_wig.write('{:.0f}\t{:.3f}\n'.format(bin*wig_bin+1, min((wigm1-wigm0)/wigd,1)))
                     bin = i // wig_bin#use integer division
                     wigd = wigm0 = wigm1 = 0.0
                 wigd += d
@@ -225,17 +225,17 @@ def Out_MIELD(out_prefix,wig_prefix,wig_bin,min_depth,ref,refmark,CT_SNP,seq_con
             pmid_mr = ratio_mr + z95sq / (2 * d)
             sd_mr = z95 * ((ratio_mr*(1-ratio_mr)/d + z95sq/(4*d*d)) ** 0.5)
             CIl_mr, CIu_mr = (pmid_mr - sd_mr) / denorminator, (pmid_mr + sd_mr) / denorminator
-            pmid_mield = ratio_mield + z95sq / (2 * d)
-            sd_mield = z95 * ((ratio_mield*(1-ratio_mield)/d + z95sq/(4*d*d)) ** 0.5)
-            CTl_mield, CTu_mield = (pmid_mield - sd_mield) / denorminator, (pmid_mield + sd_mield) / denorminator
+            pmid_camda = ratio_camda + z95sq / (2 * d)
+            sd_camda = z95 * ((ratio_camda*(1-ratio_camda)/d + z95sq/(4*d*d)) ** 0.5)
+            CTl_camda, CTu_camda = (pmid_camda - sd_camda) / denorminator, (pmid_camda + sd_camda) / denorminator
             if CT_SNP>0:
                 fo_mr.write('{}\t{}\t{}\t{}\t{:.3f}\t{:.2f}\t{}\t{}\t{}\t{}\t{:.3f}\t{:.3f}\n'.format(cr, i+1, strand, seq, ratio_mr, d, m_mr, dd, m1, d1, CIl_mr, CIu_mr))
-                fo_mield.write('{}\t{}\t{}\t{}\t{:.3f}\t{:.2f}\t{}\t{}\t{}\t{}\t{:.3f}\t{:.3f}\n'.format(cr, i+1, strand, seq, ratio_mield, d, m_mield, dd, m1, d1, CTl_mield, CTu_mield))
+                fo_camda.write('{}\t{}\t{}\t{}\t{:.3f}\t{:.2f}\t{}\t{}\t{}\t{}\t{:.3f}\t{:.3f}\n'.format(cr, i+1, strand, seq, ratio_camda, d, m_camda, dd, m1, d1, CTl_camda, CTu_camda))
             else:
                 fo_mr.write('{}\t{}\t{}\t{}\t{:.3f}\t{:.2f}\t{}\t{}\tNA\tNA\t{:.3f}\t{:.3f}\n'.format(cr, i+1, strand, seq, ratio_mr, d, m_mr, dd, CIl_mr, CIu_mr))
-                fo_mield.write('{}\t{}\t{}\t{}\t{:.3f}\t{:.2f}\t{}\t{}\tNA\tNA\t{:.3f}\t{:.3f}\n'.format(cr, i+1, strand, seq, ratio_mield, d, m_mield, dd, CTl_mield, CTu_mield))
-    fo_mr.close();fo_mield.close();
-    if wig_prefix!=None:fo_mr_wig.close();fo_mield_wig.close();
+                fo_camda.write('{}\t{}\t{}\t{}\t{:.3f}\t{:.2f}\t{}\t{}\tNA\tNA\t{:.3f}\t{:.3f}\n'.format(cr, i+1, strand, seq, ratio_camda, d, m_camda, dd, CTl_camda, CTu_camda))
+    fo_mr.close();fo_camda.close();
+    if wig_prefix!=None:fo_mr_wig.close();fo_camda_wig.close();
     disp('Total {} valid mappings, {} covered cytosines, average coverage: {:.2f} fold.'.format(nmap, nc, float(nd)/nc))
 
 def read_methy_files(ifile, cols=[0,1,2,6,7]):
@@ -275,13 +275,13 @@ def Region_Meth_Ratio(ratio_sub,start=0,end=0):
     #ratio_sub: methratio df of one chrom
     region_meth=ratio_sub.loc[start:end,:]
     count_C=region_meth.shape[0]
-    region_meth=merge_strand(df=region_meth)
-    methy_C=region_meth["methy"].sum()
-    total_C=region_meth["total"].sum()
-    if total_C==0:
-        region_methratio=np.nan
-    else:
+    if count_C > 0:
+        region_meth=merge_strand(df=region_meth)
+        methy_C=region_meth["methy"].sum()
+        total_C=region_meth["total"].sum()
         region_methratio=methy_C*1.0/total_C
+    else:
+        region_methratio=np.nan
     return [count_C,region_methratio]
 
 def Bam2ReadCT(ifiles,ref,refmark,coverage,sam_path,unique,pair,rm_dup,trim_fillin,seq_context,chroms,output):
