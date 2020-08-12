@@ -9,7 +9,7 @@ We quantified "methylation competition" based on the competition events captured
 ![image](https://github.com/JiejunShi/methylation_interruption/blob/master/images/CAMDA_schematic.png)  
 **Fig 1**. Schematic of methylation competition captured by bisulfite sequencing.  
 Bisulfite sequencing reads are dissected into three categories of fragments, i.e. methylated(***M***) fragments (consecutive solid circles in **Fig 1**), unmethylated(***U***) fragments (consecutive blank circles), and methylation-competition(***C***) fragments (consecutive slashed circles). Thus, CAMDA score of a particular genomic region is measured by the following equation.  
-![image](https://github.com/JiejunShi/methylation_interruption/blob/master/images/CAMDA_Equation.png).
+![image](https://github.com/JiejunShi/methylation_interruption/blob/master/images/CAMDA_Equation.png)
 ‘***M***’, ‘***U***’, and ‘***I***’ represent the numbers of methylated fragments, unmethylated fragments and methylation-competition fragments, respectively. ‘ω_m’, ‘ω_u’ and ‘ω_c’ are the weights for each fragment. Optional weights can be **the CpG counts of each fragment** or **1**(unweighted).
 ## Dependencies
 - Python3 with following packages
@@ -62,7 +62,7 @@ There are two scripts in CAMDA toolkit. (`./scripts/functions.py` contains the f
 
 	$ python ./scripts/CAMDA.py BedRatio ./demo/example.bed example_CpG_MethRatio.tsv -o example_MethRatio.tsv
 
-### 2. MIELD (***M***, ***U***, and ***C*** fragments are unweighted)
+### 2. CAMDA (***M***, ***U***, and ***C*** fragments are unweighted)
 #### 2.1 Generating ReadCT file from BSMAP alignments
 
 	$ python ./scripts/CAMDA.py ReadCT ./demo/example.bam hg19.fa -o example_ReadCT.tsv -s "/path/to/samtools/v0.1.19" -x CG
