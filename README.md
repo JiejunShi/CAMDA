@@ -1,17 +1,17 @@
-# *C*ompetition between *A*ctive *M*ethylation and *D*e-methyl*a*tion(CAMDA)
-DNA methylation is introduced and maintained by DNMT family and removed by TET family. TET1 notably interrupts the binding of DNMT3A to DNA, while DNMT3A also slightly blocks TET1 binding. These two “competing” enzymes can even regulate tumor malignancy in “cooperating” manner, as the DNMT3A and TET2 double-knockout mice show worse survival than single-knockout recipients. Consistently, the mutations on these two genes significantly co-occur in human T-cell lymphoma. The competition between methylation and demethylation process would be critical to tumorigenesis. However, to what extend this competition will contribute to cancer gene regulation has not been quantified.
-For years, DNA methylation levels are quantified in an ‘averaged’ manner. The increased mean methylation level of CpG island (CGI), i.e., CGI hypermethylation, is a well-established mechanism for gene silencing. Besides the mean methylation, the local DNA methylation variation is termed as “methylation heterogeneity” or “epigenetic polymorphism”. The global methylation heterogeneity corresponds with gene expression variation. And higher methylation heterogeneity is linked to poor survival. However, both mean methylation and methylation variation are not able to delineate the competition effect between active methylation and demethylation.
+# Competition between Active Methylation and De-methylation(CAMDA)
+DNA methylation is introduced and maintained by DNMT family and removed by TET family. TET1 protein prevents de novo methyltransferases from binding to regulatory elements, DNMT3A also blocks TET1 binding, especially in promoter regions. Interestingly, these two ‘competing’ enzyme families are observed to be jointly associated with tumor malignancy. For example, the DNMT3A and TET2 double-knockout mice show worse survival than single-knockout counterparts; also, mutations in DNMT3A and TET2 significantly co-occur in human T-cell lymphoma. These findings suggest that the competition between methylation and demethylation processes is related to tumorigenesis. However, to what extent this competition contribute to cancer gene regulation remains largely unknown.
+For years, DNA methylation levels are quantified in an ‘average’ manner. The increased average methylation level of CpG island (CGI), i.e., CGI hypermethylation, is a well-established mechanism for gene silencing. Besides the average methylation, DNA methylation has been quantified by its variation as ‘methylation heterogeneity’ or ‘epigenetic polymorphism'. Previous studies reveal that methylation variation is associated with global transcription variation. Moreover, higher methylation variation is linked to worse survival in acute myeloid leukemia, chronic lymphocytic leukemia, and diffuse large B-cell lymphomas, but not in glioblastoma. These studies highlight the importance of methylation variation in tumor evolution. However, neither average methylation nor methylation variation can delineate the degree of competition between active methylation and demethylation.
 We quantified "methylation competition" based on the competition events captured by bisulfite sequencing. The methylation competition events are represented by the unmethylated CpGs in partially methylated reads (slashed circles in **Fig 1**).
+![image](https://github.com/JiejunShi/methylation_interruption/blob/master/images/CAMDA_schematic.png)  
+**Fig 1. Schematic of methylation competition captured by bisulfite sequencing.**  
+Bisulfite sequencing reads are dissected into three categories of fragments, i.e. methylated(***M***) fragments (consecutive solid circles in **Fig 1**), unmethylated(***U***) fragments (consecutive blank circles), and methylation-competition(***C***) fragments (consecutive slashed circles).
+![image](https://github.com/JiejunShi/methylation_interruption/blob/master/images/CAMDA_Equation.png)  
+**Fig 2. Definition of methylation competition ratio.**  
+The methylation competition ratio of a genomic region is defined as the sum of ***C*** fragments’ weights divided by the sum of all fragments’ weights in that region. Each fragment’s weight can be set as either its number of CpGs(in section **1.** below) or 1(unweighted, in section **2.** below).
+‘***M***’, ‘***U***’, and ‘***C***’ represent the numbers of methylated fragments, unmethylated fragments and methylation-competition fragments, respectively. ‘ω_m’, ‘ω_u’ and ‘ω_c’ are the weights for each fragment.
 ## Authors
 - Jiejun Shi (jiejuns@uci.edu)
 - Wei Li (wei.li@uci.edu)
-## Equation of methylation competition score (CAMDA)
-![image](https://github.com/JiejunShi/methylation_interruption/blob/master/images/CAMDA_schematic.png)  
-**Fig 1. Schematic of methylation competition captured by bisulfite sequencing.**  
-Bisulfite sequencing reads are dissected into three categories of fragments, i.e. methylated(***M***) fragments (consecutive solid circles in **Fig 1**), unmethylated(***U***) fragments (consecutive blank circles), and methylation-competition(***C***) fragments (consecutive slashed circles). Thus, CAMDA score of a particular genomic region is measured by the following equation.  
-![image](https://github.com/JiejunShi/methylation_interruption/blob/master/images/CAMDA_Equation.png)  
-**Fig 2. Equation of methylation competition.**  
-‘***M***’, ‘***U***’, and ‘***C***’ represent the numbers of methylated fragments, unmethylated fragments and methylation-competition fragments, respectively. ‘ω_m’, ‘ω_u’ and ‘ω_c’ are the weights for each fragment. Optional weights can be **the CpG counts of each fragment** or **1**(unweighted).
 ## Dependencies
 - Python3 with following packages
   - numpy
@@ -33,29 +33,31 @@ There are two executable scripts in CAMDA toolkit, i.e. `./scripts/CAMDA.py` and
  	For help information of each function, try:
 		python CAMDA.py <Function> -h
 	Availible Functions:
-		CAMDA	Calculate Mean Methylation Ratio and the 'Competition between Active Methylation and De-methylation'(CAMDA) of each CpG from BSMAP alignments.
-		BedRatio	Calculate Mean Methylation or CAMDA of given regions from CpG's ratios generated by 'CAMDA' command.
+		CAMDA	Calculate Average Methylation Ratio(MethRatio) and Methylation Competition Ratio(CAMDA) of each CpG from BSMAP alignments.
+		BedRatio	Calculate MethRatio or CAMDA of given regions from CpG's ratios generated by 'CAMDA' command.
 		ReadCT	Generate ReadCT file from BSMAP alignments. `  
 
 	$ Rscript ./scripts/ReadCT2CAMDA.r -h
 	Usage: Rscript ReadCT2CAMDA.r [-[-help|h]] [-[-ReadCT|i] <character>] [-[-Regions|r] <character>] [-[-UseStrand|s]] [-[-Weight|w] [<character>]] [-[-Output|o] [<character>]]
 		-h|--help	useage
 		-i|--ReadCT	ReadCT file. REQUIRED.
-		-r|--Regions	Bed file of regions whose Competition between Active Methylation and De-methylation(CAMDA) will be reported. REQUIRED.
+		-r|--Regions	Bed file of regions whose Methylation Competition Ratio(CAMDA) will be reported. REQUIRED.
 		-s|--UseStrand	If -s is specified, strand infomation(6th column) in Regions file will be used.
-		-w|--Weight	Weight applied to each sub-read fragment, either "cg" or "1". "cg" means weights equal to the CpG counts of each fragment. "1" means no weight applied. [Default="cg"]
+		-w|--Weight	Weight applied to each sub-read fragment, either "cg" or "1". "cg" means weights equal to the CpG number of each fragment. "1" means no weight applied. [Default="cg"]
 		-o|--Output	Output file report CAMDA and MethRatio of each region. [Default="Region_CAMDA.tsv"].
 
   - CAMDA tools take the BSMAP([by Yuanxin](https://sites.google.com/a/brown.edu/bioinformatics-in-biomed/bsmap-for-methylation)) alignments as inputs. And we suggust to sort bam file by coordinates before calculating CAMDA score.
 
-### 1. CAMDA (***M***, ***U***, and ***C*** fragments are weighted by CpG counts)
-#### 1.1 Generating CAMDA and Mean Methylation Ratio(MethRatio) of each CpG from BSMAP alignments
+### The calculations of weighted and unweighted versions of CAMDA are different. They are introduced below in Section 1 and 2, respectively.
+
+### 1. CAMDA (***M***, ***U***, and ***C*** fragments are weighted by the number of CpGs)
+#### 1.1 Generating Methylation Competition Ratio(CAMDA) and Average Methylation Ratio(MethRatio) of each CpG from BSMAP alignments
 
 	$ python ./scripts/CAMDA.py CAMDA ./demo/example.bam hg19.fa -o example -w example -s "/path/to/samtools/v0.1.19" -x CG
 
   - This command will generate 4 outputs. **example_CpG_MethRatio.tsv** and **example_CpG_CAMDA.tsv** are the MethRatio and CAMDA of each CpG. MethRatio or CAMDA scores are in 5th column of the files. **example_CpG_MethRatio.wig** and **example_CpG_CAMDA.wig** are wiggle files for visulization. 
 
-#### 1.2 Calculating CAMDA ratio of given regions from CAMDA scores of CpG
+#### 1.2 Calculating CAMDA of given regions from CAMDA of CpG
 
 	$ python ./scripts/CAMDA.py BedRatio ./demo/example.bed example_CpG_CAMDA.tsv -o example_CAMDA.tsv
 
@@ -74,6 +76,6 @@ There are two executable scripts in CAMDA toolkit, i.e. `./scripts/CAMDA.py` and
 
 	$ Rscript ./scripts/ReadCT2CAMDA.r -i example_ReadCT.tsv -r ./demo/example.bed -w 1 -o example_CAMDA_weight_1.tsv
 	
-  - If `-w 1`, CAMDA scores with weights equal to 1(unweighted) are generated. If `-w cg`, CAMDA scores with weights equal to CpG counts are generated. In the 2nd case, the CAMDA score will be the same as the output in step **1.2**. 
-  - Because step **2.1** is time-consuming, we recommend to follow step **1.1** and **1.2** if you only want the CAMDA score with weights equal to CpG counts, which performs better in terms of expression correlation.
+  - If `-w 1`, it will generate unweighted version of CAMDA. This command can also generate weighted version of CAMDA with the option `-w cg`. In this case, the CAMDA will be the same as the output in step **1.2**. 
+  - Because step **2.1** is time-consuming, we recommend to follow step **1.1** and **1.2** if you only want the weighted version of CAMDA, which performs better in terms of gene expression correlation.
 
