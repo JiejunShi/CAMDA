@@ -10,7 +10,7 @@ Bisulfite sequencing reads are dissected into three categories of fragments, i.e
 
 **Fig 2. Definition of methylation competition ratio.**  
 The methylation competition ratio of a genomic region is defined as the sum of ***C*** fragments’ weights divided by the sum of all fragments’ weights in that region. Each fragment’s weight can be set as either its number of CpGs(in section **1.** below) or 1(unweighted, in section **2.** below).
-‘***M***’, ‘***U***’, and ‘***C***’ represent the numbers of methylated fragments, unmethylated fragments and methylation-competition fragments, respectively. ‘ω_m’, ‘ω_u’ and ‘ω_c’ are the weights for each fragment.
+‘***M***’, ‘***U***’, and ‘***C***’ represent the numbers of methylated fragments, unmethylated fragments and methylation-competition fragments, respectively. ‘ω<sub>m</sub>’, ‘ω<sub>u</sub>’ and ‘ω<sub>c</sub>’ are the weights for each fragment.
 ## Authors
 - Jiejun Shi (jiejuns@uci.edu)
 - Wei Li (wei.li@uci.edu)
