@@ -4,7 +4,7 @@ library("getopt");
 #list of options:long name, short name, flag(0=no argument, 1=required argument, 2=optional argument), data type, description
 OptList=c('help',       'h', 0, 'logical',   'useage',
           'ReadCT',     'i', 1, 'character', 'ReadCT file. REQUIRED.',
-          'Regions',    'r', 1, 'character', 'Bed file of regions whose Competition between Active Methylation and De-methylation(CAMDA) will be reported. REQUIRED.',
+          'Regions',    'r', 1, 'character', 'Bed file of regions whose Methylation Competition Ratio(CAMDA) will be reported. REQUIRED.',
           'UseStrand',  's', 0, 'logical', 'If -s is specified, strand infomation(6th column) in Regions file will be used.',
           'Weight',     'w', 2, 'character', 'Weight applied to each sub-read fragment, either "cg" or "1". "cg" means weight equal to the CpG count of each fragment. "1" means no weight applied. [Default="cg"]',
           'Output',     'o', 2, 'character', 'Output file report CAMDA and MethRatio of each region. [Default="Region_CAMDA.tsv"].'
