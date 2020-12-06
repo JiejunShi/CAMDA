@@ -78,6 +78,6 @@ There are two executable scripts in CAMDA toolkit, i.e. `./scripts/CAMDA.py` and
 
 	$ Rscript ./scripts/ReadCT2CAMDA.r -i example_ReadCT.tsv -r ./demo/example.bed -w 1 -o example_CAMDA_unweighted.tsv
 	
-  - If `-w 1`, it will generate unweighted version of CAMDA. This command can also generate weighted version of CAMDA if you replace the option `-w 1` with `-w cg`. Then in the output file `example_CAMDA_weighted.tsv`, the CAMDA will be the same as the output in step **1.2**. 
+  - If `-w 1`, it will generate unweighted version of CAMDA. This command can also generate weighted version of CAMDA if you replace the option `-w 1` with `-w cg`. Then in the output file `example_CAMDA_weighted.tsv`, the CAMDA value will be the same as in the output of step **1.2**. 
   - Because step **2.1** is time-consuming, we recommend to follow step **1.1** and **1.2** if you only want the weighted version of CAMDA, which performs better in terms of gene expression correlation.
 
