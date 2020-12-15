@@ -56,28 +56,33 @@ There are two executable scripts in CAMDA toolkit, i.e. `./scripts/CAMDA.py` and
 #### 1.1 Generating Methylation Competition Ratio(CAMDA) and Average Methylation Ratio(MethRatio) of each CpG from BSMAP alignments
 
 	$ python ./scripts/CAMDA.py CAMDA ./demo/example.bam hg19.fa -o example -w example -s "/path/to/samtools/v0.1.19" -x CG
+	# time cost: ~5 min
 
   - This command will generate 4 outputs. **example_CpG_MethRatio.tsv** and **example_CpG_CAMDA.tsv** are the MethRatio and CAMDA of each CpG. MethRatio or CAMDA scores are in 5th column of the files. **example_CpG_MethRatio.wig** and **example_CpG_CAMDA.wig** are wiggle files for visulization. 
 
 #### 1.2 Calculating CAMDA of given regions from CAMDA of CpG
 
 	$ python ./scripts/CAMDA.py BedRatio ./demo/example.bed example_CpG_CAMDA.tsv -o example_CAMDA.tsv
+	# time cost: ~1 min
 
 #### 1.3 Calculating MethRatio of given regions from MethRatio of CpG
 
 	$ python ./scripts/CAMDA.py BedRatio ./demo/example.bed example_CpG_MethRatio.tsv -o example_MethRatio.tsv
+	# time cost: ~1 min
 
 ### 2. CAMDA (***M***, ***U***, and ***C*** fragments are unweighted)
 #### 2.1 Generating ReadCT file from BSMAP alignments
 
 	$ python ./scripts/CAMDA.py ReadCT ./demo/example.bam hg19.fa -o example_ReadCT.tsv -s "/path/to/samtools/v0.1.19" -x CG
+	# time cost: ~5 min
 
   - ReadCT file saves all the CpG in each reads. "C" indicates methylated cytosine, and "T" indicates unmethylated cytosine. Each line is a BS-seq read. Columns of this file represent: "chr","strand","FirstCT","LastCT","CT_count","CT_pos","CT_seq".
 
 #### 2.2 Calculating CAMDA and MethRatio from ReadCT file
 
 	$ Rscript ./scripts/ReadCT2CAMDA.r -i example_ReadCT.tsv -r ./demo/example.bed -w 1 -o example_CAMDA_unweighted.tsv
+	# time cost: ~5 min
 	
   - If `-w 1`, it will generate unweighted version of CAMDA. This command can also generate weighted version of CAMDA if you replace the option `-w 1` with `-w cg`. Then in the output file `example_CAMDA_weighted.tsv`, the CAMDA value will be the same as in the output of step **1.2**. 
-  - Because step **2.1** is time-consuming, we recommend to follow step **1.1** and **1.2** if you only want the weighted version of CAMDA, which performs better in terms of gene expression correlation.
+  - Because step **2.1** is very time-consuming for large datasets, we recommend to follow step **1.1** and **1.2** if you only want the weighted version of CAMDA, which performs better in terms of gene expression correlation.
 
