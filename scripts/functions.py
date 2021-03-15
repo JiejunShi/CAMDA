@@ -1,4 +1,4 @@
-CAMDA#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import os, re, sys, time
 import pandas as pd
