@@ -241,7 +241,7 @@ def Out_CAMDA(out_prefix,wig_prefix,wig_bin,min_depth,ref,refmark,CT_SNP,seq_con
 def read_methy_files(ifile, cols=[0,1,2,6,7]):
     names = ['chr', 'pos', 'strand', 'methy', 'total']
     disp('Loading MethRatio: {}'.format(ifile))
-    meth_file = pd.read_csv(ifile, sep='\t', header=0, usecols=cols, names=names, compression='infer')
+    meth_file = pd.read_csv(ifile, sep='\t', header=0, usecols=cols, names=names, compression='infer',low_memory=False)
     meth_file.index = meth_file['pos']
     meth_file.drop(['pos'], axis=1, inplace=True)
     return meth_file
