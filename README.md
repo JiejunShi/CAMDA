@@ -60,7 +60,7 @@ There are two executable scripts in CAMDA toolkit, i.e. `./scripts/CAMDA.py` and
 	$ python ./scripts/CAMDA.py CAMDA ./demo/example.bam hg19.fa -o example -w example -s "/path/to/samtools/v0.1.19" -x CG
 	# time cost: ~5 min
 
-  - This command will generate 4 outputs. **example_CpG_MethRatio.tsv** and **example_CpG_CAMDA.tsv** are the MethRatio and CAMDA of each CpG. MethRatio or CAMDA scores are in 5th column of the files. **example_CpG_MethRatio.wig** and **example_CpG_CAMDA.wig** are wiggle files for visulization. 
+  - This command will generate 4 outputs. `example_CpG_MethRatio.tsv` and `example_CpG_CAMDA.tsv` are the MethRatio and CAMDA of each CpG. MethRatio or CAMDA scores are in 5th column of the files. `example_CpG_MethRatio.wig` and `example_CpG_CAMDA.wig` are wiggle files for visulization. 
 
 #### 1.2 Calculating CAMDA of given regions from CAMDA of CpG
 
