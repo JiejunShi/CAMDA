@@ -89,6 +89,9 @@ There are two executable scripts in CAMDA toolkit, i.e. `./scripts/CAMDA.py` and
   - Because step **2.1** is very time-consuming for large datasets, we recommend to follow step **1.1** and **1.2** if you only want the weighted version of CAMDA, which performs better in terms of gene expression correlation.
 
 ## The supplementary data for CAMDA paper
-The methylation concurrence (CAMDA) was first introduced and published in: Shi, J. *et al*. The Concurrence of DNA Methylation and Demethylation is Associated with Transcription Regulation. ***Nature Communications*** (2021).
+The methylation concurrence (CAMDA) was first introduced and published in: 
+
+Shi, J. *et al*. The Concurrence of DNA Methylation and Demethylation is Associated with Transcription Regulation. ***Nature Communications*** (2021).
+
 The files under `./paper-data/` are the supplementary data for the above paper, which can be used to reproduce the main findings in this paper.
  
