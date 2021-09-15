@@ -91,7 +91,7 @@ There are two executable scripts in CAMDA toolkit, i.e. `./scripts/CAMDA.py` and
 ## The CAMDA paper and its supplementary data
 The methylation concurrence metric (CAMDA) was first introduced and published in paper below. 
 
-Shi, J. *et al*. The Concurrence of DNA Methylation and Demethylation is Associated with Transcription Regulation. [***Nature Communications*** 12, 5285 (2021).](https://www.nature.com/articles/s41467-021-25521-7)
+Shi, J. *et al*. The Concurrence of DNA Methylation and Demethylation is Associated with Transcription Regulation. [***Nature Communications*** 12:5285 (2021).](https://www.nature.com/articles/s41467-021-25521-7)
 
 The files under `./paper-data/` are the supplementary data for the above paper, which can be used to reproduce the main findings in this paper.
  
