@@ -153,14 +153,14 @@ def main(cmd=''):
         args.Alignments=set(args.Alignments.split(','))
         if args.CT_SNP > 0:
             meth0,meth1,depth,meth_ct,depth_ct,nmap=Load_Alignment(ifiles=args.Alignments,ref=ref,refmark=refmark,coverage=coverage,\
-                                                                            meth0=meth0,meth1=meth1,depth=depth,meth_ct=meth_ct,depth_ct=depth_ct,\
-                                                                            sam_path=args.sam_path,unique=args.unique,pair=args.pair,rm_dup=args.rm_dup,trim_fillin=args.trim_fillin,chroms=args.chroms,\
-                                                                            seq_context=seq_context,CT_SNP=args.CT_SNP)
+            meth0=meth0,meth1=meth1,depth=depth,meth_ct=meth_ct,depth_ct=depth_ct,\
+            sam_path=args.sam_path,unique=args.unique,pair=args.pair,rm_dup=args.rm_dup,trim_fillin=args.trim_fillin,chroms=args.chroms,\
+            seq_context=seq_context,CT_SNP=args.CT_SNP)
         else:
             meth0,meth1,depth,nmap=Load_Alignment(ifiles=args.Alignments,ref=ref,refmark=refmark,coverage=coverage,\
-                                                           meth0=meth0,meth1=meth1,depth=depth,meth_ct=[],depth_ct=[],\
-                                                           sam_path=args.sam_path,unique=args.unique,pair=args.pair,rm_dup=args.rm_dup,trim_fillin=args.trim_fillin,chroms=args.chroms,\
-                                                           seq_context=seq_context,CT_SNP=args.CT_SNP)
+            meth0=meth0,meth1=meth1,depth=depth,meth_ct=[],depth_ct=[],\
+            sam_path=args.sam_path,unique=args.unique,pair=args.pair,rm_dup=args.rm_dup,trim_fillin=args.trim_fillin,chroms=args.chroms,\
+            seq_context=seq_context,CT_SNP=args.CT_SNP)
         # Combine CpG methylation from both strands
         if args.combine_CpG==True:
             disp('Combining CpG methylation from both strands')
@@ -173,10 +173,10 @@ def main(cmd=''):
         # Output CAMDA,MethRatio files and wiggle file
         if args.CT_SNP > 0:
             Out_CAMDA(out_prefix=args.out_prefix,wig_prefix=args.wig_prefix,wig_bin=args.wig_bin,min_depth=args.min_depth,ref=ref,refmark=refmark,CT_SNP=args.CT_SNP,seq_context=seq_context,\
-                          meth0=meth0,meth1=meth1,depth=depth,meth_ct=meth_ct,depth_ct=depth_ct,nmap=nmap)
+            meth0=meth0,meth1=meth1,depth=depth,meth_ct=meth_ct,depth_ct=depth_ct,nmap=nmap)
         else:
             Out_CAMDA(out_prefix=args.out_prefix,wig_prefix=args.wig_prefix,wig_bin=args.wig_bin,min_depth=args.min_depth,ref=ref,refmark=refmark,CT_SNP=args.CT_SNP,seq_context=seq_context,\
-                          meth0=meth0,meth1=meth1,depth=depth,meth_ct=[],depth_ct=[],nmap=nmap)
+            meth0=meth0,meth1=meth1,depth=depth,meth_ct=[],depth_ct=[],nmap=nmap)
         # Delete big array to release memory
         del ref, refmark, coverage, depth, meth0, meth1
         if args.CT_SNP > 0:del depth_ct, meth_ct
