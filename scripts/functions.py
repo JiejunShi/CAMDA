@@ -167,7 +167,8 @@ def Combine_Methylation_Both_Strands(ref,uncombined):
             pos = ref_cr.find('CG', pos+2)
     return uncombined
 
-def Out_CAMDA(out_prefix,wig_prefix,wig_bin,min_depth,ref,refmark,CT_SNP,seq_context,meth0,meth1,depth,meth_ct,depth_ct,nmap):
+def Out_CAMDA(out_prefix,wig_prefix,wig_bin,min_depth,ref,refmark,CT_SNP,\
+seq_context,meth0,meth1,depth,meth_ct,depth_ct,nmap):
     header=['chr','pos','strand','context','ratio','eff_CT_count','C_count','CT_count','rev_G_count','rev_GA_count','CI_lower','CI_upper']
     fo_mr = open(out_prefix+"_CpG_MethRatio.tsv", 'w')
     fo_mr.write('\t'.join(header)+'\n')
@@ -284,7 +285,8 @@ def Region_Meth_Ratio(ratio_sub,start=0,end=0):
         region_methratio=np.nan
     return [count_C,region_methratio]
 
-def Bam2ReadCT(ifiles,ref,refmark,coverage,sam_path,unique,pair,rm_dup,trim_fillin,seq_context,chroms,output):
+def Bam2ReadCT(ifiles,ref,refmark,coverage,sam_path,unique,pair,rm_dup,\
+trim_fillin,seq_context,chroms,output):
     pipes = []
     for ifile in ifiles:
         if ifile[-4:].upper() == '.SAM': sam_format, fin = True, os.popen('%ssamtools view -XS %s' % (sam_path, ifile))
